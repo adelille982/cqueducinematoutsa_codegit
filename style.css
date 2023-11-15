@@ -33,10 +33,23 @@ footer {
     position: relative;
 }
 
+.boutonfooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .footer-buttons {
     position: absolute;
     top: 0;   /* En haut du footer */
     right: 0; /* À droite du footer */
     margin-top: 10px;
     margin-right: 10px;
+}
+
+.btn {
+    margin: 5px;
+    padding: 15px 50px;
+    font-size: 14px;
 }
