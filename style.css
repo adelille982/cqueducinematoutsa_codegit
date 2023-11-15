@@ -1,0 +1,42 @@
+.bi 
+{
+    font-size: 1.5rem;  /* Ajuste la taille des icônes */
+    margin-right: 15px;
+}
+
+
+header 
+{
+    width: 100%;
+    height: 70vh;
+}
+
+.imageprincipal 
+{
+    width: 100%;
+    height: 100%;
+}
+
+#imageHeader img 
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#btn
+{
+    margin-right: 15px;  
+}
+
+footer {
+    position: relative;
+}
+
+.footer-buttons {
+    position: absolute;
+    top: 0;   /* En haut du footer */
+    right: 0; /* À droite du footer */
+    margin-top: 10px;
+    margin-right: 10px;
+}
