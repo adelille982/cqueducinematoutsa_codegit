@@ -26,12 +26,15 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="tarif.php">TARIFS</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="seance.php">SÉANCES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="reservation.php">RÉSERVATION</a>
+        </li>
       </ul>
 
       <i class="bi bi-person-circle"></i>
