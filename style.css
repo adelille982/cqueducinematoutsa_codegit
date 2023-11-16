@@ -1,6 +1,12 @@
 /* _______________________________________________________________________________________partie css page index___________________________________________________ */
 /* ----------------------partie css header */
 
+/* css des icones panier/compte */
+.bi {
+    color: white;
+
+}
+
 .bi 
 {
     font-size: 1.5rem;  /* Ajuste la taille des icônes */
@@ -109,7 +115,8 @@ footer {
     flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
 }
 
-.image-container2 {
+.image-container2 
+{
     width: 20%; /* La largeur du conteneur */
     padding-bottom: 20%; /* Assurez que ceci est égal à la largeur pour créer un cercle */
     position: relative;
@@ -118,7 +125,8 @@ footer {
     overflow: hidden; /* Important pour rogner les bords de l'image */
 }
 
-.image-container2 img {
+.image-container2 img 
+{
     position: absolute; /* Positionnement absolu par rapport au conteneur */
     top: 50%; /* Centre l'image verticalement */
     left: 50%; /* Centre l'image horizontalement */
@@ -128,8 +136,98 @@ footer {
     object-fit: cover; /* S'assure que l'image couvre le conteneur */
 }
 
-/* _______________________________________________________________________________________partie css index___________________________________________________ */
+/* _______________________________________________________________________________________partie css page tarif___________________________________________________ */
 
+
+.section_index-tarif1
+{
+    margin-left: 100px;
+}
+
+.section_index-tarif2 > div 
+{
+    display: flex; /* Ajoutez cette propriété pour aligner horizontalement */
+    justify-content: center; /* Centre les éléments horizontalement */
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+}
+
+.image-container_tarif
+{
+    width: 30%; /* Ajusté pour trois images sur une ligne */
+    overflow: hidden;
+    padding-bottom: 2%;
+    position: relative;
+    margin: 10px; /* Ajustez selon vos besoins */
+}
+
+.image-container_tarif img 
+{
+    width: 100%;
+    height: auto; /* Modifiez pour 'auto' pour conserver le ratio d'aspect */
+    object-fit: cover;
+    border-radius: 15px; /* Ajoutez cette ligne pour des bords arrondis */
+}
+
+/* _______________________________________________________________________________________partie css page panier___________________________________________________ */
+
+.panier 
+{
+    width: 80%;
+    margin: 20px auto;
+}
+
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td 
+{
+    border: 1px solid #ddd;
+}
+
+th, td 
+{
+    text-align: left;
+    padding: 8px;
+}
+
+th 
+{
+    background-color: rgb(58, 18, 49), 0.301;
+}
+
+tr:nth-child(even) 
+{
+    background-color: #eee;
+}
+
+button 
+{
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c9302c;
+}
+
+.btn-success {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-success:hover {
+    background-color: #4cae4c;
+}
 
 
 

@@ -36,9 +36,10 @@
           <a class="nav-link" href="reservation.php">RÉSERVATION</a>
         </li>
       </ul>
+      <a href="compte_utilisateur.php"class="bi bi-person-lines-fill"></a>
+      <a href="connexion_utlisateur.php" class="bi bi-person-circle"></a>
+      <a href="panier.php" class="bi bi-cart3"></a>
 
-      <i class="bi bi-person-circle"></i>
-      <i class="bi bi-cart3"></i>
 
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Rechercher">
