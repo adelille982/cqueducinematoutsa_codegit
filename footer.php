@@ -7,21 +7,27 @@
     <link rel="stylesheet" href="style.css" />
     <title>CQUEDUCINEMATOUTSA</title>
 </head>
-
+<br>
+<br>
+<br><hr>
 <footer>
+
 <section class="footer-buttons">
     <div>
         <div>
-        <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">FR</button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Tooltip on top">EN</button>
+        <a href="#" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left" role="button">FR</a>
+        <a href="blaguekev.php" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Tooltip on top" role="button">EN</a>
+
         </div>
     </div>
 </section>
+
 <br>
 <br>
 <br>
 <br>
 <br>
+
 <section class="boutonfooter">
     <div>
         <div>
@@ -34,6 +40,11 @@
         </div>
     </div>
 </section>
+
+<br>
+<br>
+<br>
+
 </footer>
 
 

@@ -1,3 +1,6 @@
+/* _______________________________________________________________________________________partie css page index___________________________________________________ */
+/* ----------------------partie css header */
+
 .bi 
 {
     font-size: 1.5rem;  /* Ajuste la taille des icônes */
@@ -23,6 +26,8 @@ header
     height: 100%;
     object-fit: cover;
 }
+
+/* -------------------------partie css footer */
 
 #btn
 {
@@ -53,3 +58,79 @@ footer {
     padding: 15px 50px;
     font-size: 14px;
 }
+
+/* -----------------------partie css index */
+
+.section_index1
+{
+    text-align: center;
+}
+
+#section_index2
+{
+    text-align: left;
+    margin-left: 30px;
+}
+
+.section_index_sortie > div 
+{
+    display: flex; /* Ajoutez cette propriété pour aligner horizontalement */
+    justify-content: center; /* Centre les éléments horizontalement */
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+}
+
+.image-container 
+{
+    width: 30%; /* Ajusté pour trois images sur une ligne */
+    overflow: hidden;
+    padding-bottom: 2%;
+    position: relative;
+    margin: 10px; /* Ajustez selon vos besoins */
+}
+
+.image-container img 
+{
+    width: 100%;
+    height: auto; /* Modifiez pour 'auto' pour conserver le ratio d'aspect */
+    object-fit: cover;
+    border-radius: 15px; /* Ajoutez cette ligne pour des bords arrondis */
+}
+
+#section_index3
+{
+    text-align: center;
+    margin-left: 30px;
+}
+
+.section_index_promo > div 
+{
+    display: flex; /* Ajoutez cette propriété pour aligner horizontalement */
+    justify-content: center; /* Centre les éléments horizontalement */
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+}
+
+.image-container2 {
+    width: 20%; /* La largeur du conteneur */
+    padding-bottom: 20%; /* Assurez que ceci est égal à la largeur pour créer un cercle */
+    position: relative;
+    margin: 10px;
+    border-radius: 50%; /* Rend le conteneur circulaire */
+    overflow: hidden; /* Important pour rogner les bords de l'image */
+}
+
+.image-container2 img {
+    position: absolute; /* Positionnement absolu par rapport au conteneur */
+    top: 50%; /* Centre l'image verticalement */
+    left: 50%; /* Centre l'image horizontalement */
+    width: auto; /* Garde l'aspect original de l'image */
+    height: 100%; /* Hauteur totale pour éviter les espaces vides */
+    transform: translate(-50%, -50%); /* Ajustement fin pour centrer parfaitement l'image */
+    object-fit: cover; /* S'assure que l'image couvre le conteneur */
+}
+
+/* _______________________________________________________________________________________partie css index___________________________________________________ */
+
+
+
+
+
