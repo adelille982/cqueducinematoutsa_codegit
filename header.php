@@ -23,7 +23,6 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" href="films.php">FILMS
-            <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <li class="nav-item">
@@ -36,10 +35,17 @@
           <a class="nav-link" href="reservation.php">RÉSERVATION</a>
         </li>
       </ul>
-      <a href="compte_utilisateur.php"class="bi bi-person-lines-fill"></a>
-      <a href="connexion_utlisateur.php" class="bi bi-person-circle"></a>
-      <a href="panier.php" class="bi bi-cart3"></a>
-
+      <!-- Menu déroulant pour l'icône de connexion utilisateur -->
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle bi bi-person-circle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Connexion
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="inscription.php">INSCRIPTION</a></li>
+        <li><a class="dropdown-item" href="connexion_utlisateur.php">CONNEXION</a></li>
+          <li><a class="dropdown-item" href="compte_utilisateur.php">MON COMPTE</a></li>
+        </ul>
+      </div>
 
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Rechercher">

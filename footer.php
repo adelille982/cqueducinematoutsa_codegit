@@ -10,12 +10,12 @@
 <br>
 <br>
 <br><hr>
-<footer>
 
+<footer>
 <section class="footer-buttons">
     <div>
         <div>
-        <a href="index.php" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left" role="button">FR</a>
+        <a href="admin.php" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left" role="button">FR</a>
         <a href="blaguekev.php" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Tooltip on top" role="button">EN</a>
 
         </div>

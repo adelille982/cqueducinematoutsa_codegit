@@ -27,6 +27,11 @@
     <div class="button">
         <br>
         <p>
+        <a href="inscription.php" type="submit" class="btn btn-primary">INSCRIPTION</a>
+        </p>
+    </div>
+    <div class="button">
+        <p>
         <button type="submit" class="btn btn-danger">CONNEXION</button>
         </p>
     </div>

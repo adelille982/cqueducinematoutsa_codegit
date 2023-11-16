@@ -2,7 +2,8 @@
 /* ----------------------partie css header */
 
 /* css des icones panier/compte */
-.bi {
+.bi 
+{
     color: white;
 
 }
@@ -40,18 +41,21 @@ header
     margin-right: 15px;  
 }
 
-footer {
+footer 
+{
     position: relative;
 }
 
-.boutonfooter {
+.boutonfooter 
+{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.footer-buttons {
+.footer-buttons 
+{
     position: absolute;
     top: 0;   /* En haut du footer */
     right: 0; /* À droite du footer */
@@ -59,7 +63,8 @@ footer {
     margin-right: 10px;
 }
 
-.btn {
+.btn 
+{
     margin: 5px;
     padding: 15px 50px;
     font-size: 14px;
@@ -212,11 +217,13 @@ button
     cursor: pointer;
 }
 
-button:hover {
+button:hover 
+{
     background-color: #c9302c;
 }
 
-.btn-success {
+.btn-success 
+{
     background-color: #5cb85c;
     color: white;
     border: none;
@@ -225,9 +232,67 @@ button:hover {
     margin-top: 20px;
 }
 
-.btn-success:hover {
+.btn-success:hover 
+{
     background-color: #4cae4c;
 }
+
+/* _______________________________________________________________________________________partie css page forms___________________________________________________ */
+
+.form-group
+{
+    margin-left: 600px;
+    margin-right: 600px;
+}
+
+/* _______________________________________________________________________________________partie css page film__________________________________________________ */
+
+.custom-container 
+{
+    max-width: 80%;
+    margin: auto;
+}
+
+.text-center 
+{
+    text-align: center;
+}
+
+.selector-container 
+{
+    display: flex;
+    justify-content: center;
+    gap: 20px;;
+}
+
+.cinema-selector, .session-selector, .reservation-button 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rounded-image 
+{
+    border-radius: 15px; /* Vous pouvez ajuster cette valeur selon le degré d'arrondi souhaité */
+}
+
+.selector-container .cinema-selector,
+.selector-container .session-selector 
+{
+    margin-right: 120px;
+}
+
+.selector-container .reservation-button 
+{
+    margin-left: 40px;
+}
+
+/* _______________________________________________________________________________________partie css page ??__________________________________________________ */
+
+
+
+
 
 
 
