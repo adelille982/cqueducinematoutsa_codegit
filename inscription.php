@@ -21,18 +21,8 @@
     </div>
 
     <div class="form-group">
-      <label for="lastNameInput" class="form-label mt-4">Entrez votre nom:</label>
-      <input type="text" class="form-control" id="lastNameInput" placeholder="Entrez votre nom de famille ici">
-    </div>
-
-    <div class="form-group">
-      <label for="firstNameInput" class="form-label mt-4">Entrez votre prénom:</label>
-      <input type="text" class="form-control" id="firstNameInput" placeholder="Entrez votre prénom ici">
-    </div>
-
-    <div class="form-group">
-      <label for="dobInput" class="form-label mt-4">Entrez votre date de naissance</label>
-      <input type="date" class="form-control" id="dobInput" placeholder="Entrez votre date de naissance ici">
+      <label for="userNameInput" class="form-label mt-4">Entrez votre nom d'utilisateur:</label>
+      <input type="text" class="form-control" id="userName" placeholder="Entrez votre nom d'utilisateur ici">
     </div>
 
     <br>
