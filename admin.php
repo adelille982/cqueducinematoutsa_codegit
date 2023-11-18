@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "header.php";
-require_once 'function.php';
 ?>
 
 <br>
@@ -113,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     <div class="form-group">
         <label for="numberOfRooms" class="form-label mt-4">NOMBRE DE SALLES DANS LE CINÉMA:</label>
-        <input type="number" class="form-control" id="numberOfRooms" name="numberOfRooms" min="1" max="100" required>
+        <input type="number" class="form-control" id="numberOfRooms" name="numberOfRooms" min="1" max="1" required>
     </div>
 
     <div class="form-group">
@@ -177,6 +176,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <hr>
 <br>
 
+<form action="path_to_your_script_for_seance.php" method="post">
+  <fieldset>
+    <legend style="text-align: center;">RAJOUTER UNE SÉANCE</legend>
+
+<!-- Sélection du film -->
+<div class="form-group">
+  <label for="movieId1" class="form-label mt-4">TITRE DU FILM:</label>
+  <select class="form-control" id="movieId1" name="movieId1">
+    <!-- Options générées dynamiquement à partir de la base de données -->
+    <!-- <option value="id_du_film">Nom du film</option> -->
+  </select>
+</div>
+
 <script>
 // Fonction pour charger la liste des films depuis la base de données pour le premier formulaire
 function loadMovies1() {
@@ -194,17 +206,34 @@ function loadMovies1() {
     .catch(error => console.error(error));
 }
 
-// Appel de loadMovies1 pour le premier formulaire
+// Appel des fonctions pour charger les listes déroulantes au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
   loadMovies1();
 });
+</script>
 
+<!-- Date et heure de la séance -->
+<div class="form-group">
+  <label for="sessionDateTime" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE:</label>
+  <input type="datetime-local" class="form-control" id="sessionDateTime" name="sessionDateTime" required>
+</div>
+
+<!-- Sélection du cinéma -->
+<div class="form-group">
+  <label for="roomId1" class="form-label mt-4">CINÉMA OÙ LA SÉANCE EST DISPONIBLE:</label>
+  <select class="form-control" id="roomId1" name="roomId1">
+    <!-- Options générées dynamiquement à partir de la base de données -->
+    <!-- <option value="id_du_cinéma">Nom du cinéma</option> -->
+  </select>
+</div>
+
+<script>
 // Fonction pour charger la liste des cinémas depuis la base de données
-function loadCinemas() {
+function loadCinemas1() {
   fetch('votre_script_php_pour_charger_les_cinemas.php')
     .then(response => response.json())
     .then(data => {
-      const cinemaSelect = document.getElementById('roomId');
+      const cinemaSelect = document.getElementById('roomId1');
       data.forEach(cinema => {
         const option = document.createElement('option');
         option.value = cinema.ID;
@@ -217,38 +246,9 @@ function loadCinemas() {
 
 // Appel des fonctions pour charger les listes déroulantes au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-  loadMovies();
-  loadCinemas();
+  loadCinemas1();
 });
 </script>
-
-<form action="path_to_your_script_for_seance.php" method="post">
-  <fieldset>
-    <legend style="text-align: center;">RAJOUTER UNE SÉANCE</legend>
-
-<!-- Sélection du film -->
-<div class="form-group">
-  <label for="movieId" class="form-label mt-4">TITRE DU FILM:</label>
-  <select class="form-control" id="movieId1" name="movieId1">
-    <!-- Options générées dynamiquement à partir de la base de données -->
-    <!-- <option value="id_du_film">Nom du film</option> -->
-  </select>
-</div>
-
-<!-- Date et heure de la séance -->
-<div class="form-group">
-  <label for="sessionDateTime" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE:</label>
-  <input type="datetime-local" class="form-control" id="sessionDateTime" name="sessionDateTime" required>
-</div>
-
-<!-- Sélection du cinéma -->
-<div class="form-group">
-  <label for="roomId" class="form-label mt-4">CINÉMA OÙ LA SÉANCE EST DISPONIBLE:</label>
-  <select class="form-control" id="roomId" name="roomId">
-    <!-- Options générées dynamiquement à partir de la base de données -->
-    <!-- <option value="id_du_cinéma">Nom du cinéma</option> -->
-  </select>
-</div>
 
 <!-- Nombre de places disponibles -->
 <div class="form-group">
@@ -272,9 +272,9 @@ if (isset($_SESSION['seance_message'])) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $movieId = $_POST['movieId'];
+  $movieId = $_POST['movieId1']; // Utilisez le nom correct du champ dans votre formulaire
   $sessionDateTime = $_POST['sessionDateTime'];
-  $roomId = $_POST['roomId'];
+  $roomId = $_POST['roomId1']; // Assurez-vous également d'utiliser le bon nom pour cette variable
   $availableSeats = $_POST['availableSeats'];
 
   try {
@@ -474,7 +474,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <hr>
 <br>
 
-<script>
+
+
+<form action="path_to_your_script_for_review.php" method="post">
+  <fieldset>
+    <legend style="text-align: center;">GESTION DES AVIS</legend>
+
+    <!-- ID de l'Utilisateur -->
+    <div class="form-group">
+      <label for="userId" class="form-label mt-4">ID DE L'UTILISATEUR:</label>
+      <input type="number" class="form-control" id="userId" name="userId" min="1" placeholder="ID de l'utilisateur" required>
+    </div>
+
+    <!-- Sélection du film -->
+    <div class="form-group">
+      <label for="movieId2" class="form-label mt-4">TITRE DU FILM:</label>
+      <select class="form-control" id="movieId2" name="movieId">
+        <!-- Options générées dynamiquement à partir de la base de données -->
+      </select>
+    </div>
+
+    <script>
 // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
 function loadMovies2() {
   fetch('votre_script_php_pour_charger_les_films.php')
@@ -496,24 +516,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMovies2();
 });
 </script>
-
-<form action="path_to_your_script_for_review.php" method="post">
-  <fieldset>
-    <legend style="text-align: center;">GESTION DES AVIS</legend>
-
-    <!-- ID de l'Utilisateur -->
-    <div class="form-group">
-      <label for="userId" class="form-label mt-4">ID DE L'UTILISATEUR:</label>
-      <input type="number" class="form-control" id="userId" name="userId" min="1" placeholder="ID de l'utilisateur" required>
-    </div>
-
-    <!-- Sélection du film -->
-    <div class="form-group">
-      <label for="movieId2" class="form-label mt-4">TITRE DU FILM:</label>
-      <select class="form-control" id="movieId2" name="movieId">
-        <!-- Options générées dynamiquement à partir de la base de données -->
-      </select>
-    </div>
 
     <!-- Commentaire -->
     <div class="form-group">
@@ -622,41 +624,107 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['userId']) && isset($_P
       <input type="date" class="form-control" id="endDate" name="endDate" required>
     </div>
 
-<!-- Statut de l'offre -->
-<div class="form-group">
-  <label for="offerStatus" class="form-label mt-4">STATUT DE L'OFFRE:</label>
-  <select class="form-control" id="offerStatus" name="offerStatus" required>
-    <option value="disponible">Disponible</option>
-    <option value="non_disponible">Plus disponible</option>
-  </select>
-</div>
-
+    <!-- Statut de l'offre -->
+    <div class="form-group">
+      <label for="offerStatus" class="form-label mt-4">STATUT DE L'OFFRE:</label>
+      <select class="form-control" id="offerStatus" name="offerStatus" required>
+        <option value="disponible">Disponible</option>
+        <option value="non_disponible">Plus disponible</option>
+      </select>
+    </div>
 
     <!-- Sélection du film -->
     <div class="form-group">
-      <label for="movieId2" class="form-label mt-4">TITRE DU FILM:</label>
-      <select class="form-control" id="movieId2" name="movieId">
+      <label for="movieId3" class="form-label mt-4">TITRE DU FILM:</label>
+      <select class="form-control" id="movieId3" name="movieId3">
         <!-- Options générées dynamiquement à partir de la base de données -->
       </select>
     </div>
 
-<!-- Sélection date et heure séance -->
-<div class="form-group">
-  <label for="seanceId" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE</label>
-  <select class="form-control" id="seanceId" name="seanceId">
-    <!-- Options générées dynamiquement à partir de la base de données -->
-    <!-- <option value="id_du_film">Nom du film</option> -->
-  </select>
-</div>
+    <script>
+      // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
+function loadMovies3() {
+  fetch('votre_script_php_pour_charger_les_films.php')
+    .then(response => response.json())
+    .then(data => {
+      const movieSelect = document.getElementById('movieId3');
+      data.forEach(movie => {
+        const option = document.createElement('option');
+        option.value = movie.ID;
+        option.textContent = movie.movie_title;
+        movieSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error(error));
+}
 
-<!-- Sélection catégorie de tarif -->
-<div class="form-group">
-  <label for="catTarif" class="form-label mt-4">CATÉGORIE DE TARIF</label>
-  <select class="form-control" id="catTarif" name="catTarif">
-    <!-- Options générées dynamiquement à partir de la base de données -->
-    <!-- <option value="id_du_film">Nom du film</option> -->
-  </select>
-</div>
+// Appel des fonctions pour charger les listes déroulantes au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  loadMovies3();
+});
+    </script>
+
+    <!-- Sélection date et heure séance -->
+    <div class="form-group">
+      <label for="sessionId" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE</label>
+      <select class="form-control" id="sessionId" name="session_id">
+        <!-- Options générées dynamiquement à partir de la base de données -->
+      </select>
+    </div>
+
+    <script>
+      // Fonction pour charger la liste des dates et heures de séance depuis la base de données
+function loadSessionDateTime() {
+  fetch('votre_script_php_pour_charger_les_dates_heures.php')
+    .then(response => response.json())
+    .then(data => {
+      const sessionSelect = document.getElementById('sessionId'); // Changez le nom de l'ID ici
+      data.forEach(session => {
+        const option = document.createElement('option');
+        option.value = session.ID;
+        option.textContent = session.date_and_time;
+        sessionSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error(error));
+}
+
+// Appel des fonctions pour charger les listes déroulantes au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  loadSessionDateTime();
+});
+    </script>
+
+    <!-- Sélection catégorie de tarif -->
+    <div class="form-group">
+      <label for="category_id" class="form-label mt-4">CATÉGORIE DE TARIF</label>
+      <select class="form-control" id="category_id" name="category_id">
+        <!-- Options générées dynamiquement à partir de la base de données -->
+      </select>
+    </div>
+    
+    <script>
+      // Fonction pour charger la liste des catégories de tarif depuis la base de données
+function loadCategoryTariff() {
+  fetch('votre_script_php_pour_charger_les_categories_tarif.php')
+    .then(response => response.json())
+    .then(data => {
+      const categoryIdSelect = document.getElementById('category_id');
+      data.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.ID;
+        option.textContent = category.tariff_category_name;
+        categoryIdSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error(error));
+}
+
+// Appel des fonctions pour charger les listes déroulantes au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  loadCategoryTariff();
+});
+    </script>
 
     <br>
 
@@ -666,6 +734,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['userId']) && isset($_P
   </fieldset>
 </form>
 
+<script>
+  // Fonction pour charger la liste des dates et heures de séance depuis la base de données
+function loadSessionDateTime() {
+  fetch('votre_script_php_pour_charger_les_dates_heures.php')
+    .then(response => response.json())
+    .then(data => {
+      const sessionSelect = document.getElementById('sessionId'); // Changez le nom de l'ID ici
+      data.forEach(session => {
+        const option = document.createElement('option');
+        option.value = session.ID;
+        option.textContent = session.date_and_time;
+        sessionSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error(error));
+}
+</script>
+
+<?php
+// Assurez-vous d'inclure votre fichier de configuration de la base de données et d'établir une connexion
+$pdo = connect_bd();
+
+if (isset($_SESSION['promotion_message'])) {
+  echo "<div style='text-align: center;'><p style='color: green;'>" . $_SESSION['promotion_message'] . "</p></div>";
+  unset($_SESSION['promotion_message']);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['offerTitle']) && isset($_POST['offerDescription']) && isset($_POST['termAndCondition']) && isset($_POST['startDate']) && isset($_POST['endDate']) && isset($_POST['offerStatus']) && isset($_POST['movieId3']) && isset($_POST['session_id']) && isset($_POST['category_id'])) {
+    $offerTitle = $_POST['offerTitle'];
+    $offerDescription = $_POST['offerDescription'];
+    $termAndCondition = $_POST['termAndCondition'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $offerStatus = $_POST['offerStatus'];
+    $movieId3 = $_POST['movieId3'];
+    $sessionId = $_POST['session_id'];
+    $categoryId = $_POST['category_id'];
+
+    try {
+        // Préparez et exécutez la requête SQL pour insérer la promotion/offre spéciale
+        $query = "INSERT INTO promotion_and_special_offer (offer_title, offer_description, term_and_condition, start_date, end_date, offer_status, movie_id, session_id, category_id) VALUES (:offerTitle, :offerDescription, :termAndCondition, :startDate, :endDate, :offerStatus, :movieId3, :session, :category_id)";
+        $statement = $pdo->prepare($query);
+        $statement->bindValue(':offerTitle', $offerTitle, PDO::PARAM_STR);
+        $statement->bindValue(':offerDescription', $offerDescription, PDO::PARAM_STR);
+        $statement->bindValue(':termAndCondition', $termAndCondition, PDO::PARAM_STR);
+        $statement->bindValue(':startDate', $startDate, PDO::PARAM_STR);
+        $statement->bindValue(':endDate', $endDate, PDO::PARAM_STR);
+        $statement->bindValue(':offerStatus', $offerStatus, PDO::PARAM_STR);
+        $statement->bindValue(':movieId3', $movieId3, PDO::PARAM_INT);
+        $statement->bindValue('session_id', $sessionId, PDO::PARAM_INT);
+        $statement->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+
+        if ($statement->execute()) {
+            // La promotion/offre spéciale a été ajoutée avec succès
+            $_SESSION['promotion_message'] = "Promotion/offre spéciale ajoutée avec succès.";
+        } else {
+            // Une erreur s'est produite lors de l'ajout de la promotion/offre spéciale
+            $_SESSION['promotion_message'] = "Erreur lors de l'ajout de la promotion/offre spéciale.";
+        }
+    } catch (PDOException $e) {
+        // Erreur de connexion à la base de données
+        $_SESSION['promotion_message'] = "Erreur de connexion à la base de données : " . $e->getMessage();
+    }
+
+    // Rediriger vers la page d'origine ou une autre page si nécessaire
+    header('Location: admin.php');
+    exit();
+}
+?>
 
 <br>
 
