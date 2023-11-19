@@ -1,5 +1,5 @@
 <?php
-    include "header.php";
+include "header.php";
 ?>
 <br>
 <br>
@@ -27,12 +27,12 @@
 
     <br>
     <div style="text-align: center;">
-        <button type="submit" class="btn btn-primary">SOUMETTRE</button>
+      <button type="submit" class="btn btn-primary">SOUMETTRE</button>
     </div>
   </fieldset>
 </form>
 
 
 <?php
-    include "footer.php";
+include "footer.php";
 ?>

@@ -33,8 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cinemaName'])) {
         $_SESSION['cinema_message'] = "Cinéma ajouté avec succès !";
         header('Location: admin.php');
         exit();
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         die("Erreur de connexion à la base de données: " . $e->getMessage());
     }
 }
-?>

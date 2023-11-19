@@ -1,5 +1,5 @@
 <?php
-    include "header.php";
+include "header.php";
 ?>
 
 <br>
@@ -14,30 +14,30 @@
 <form action="" method="post" style="text-align: center;">
     <div>
         <p>
-        <label for="identifiant">Identifiant:</label>
+            <label for="identifiant">Identifiant:</label>
         </p>
         <input type="text" id="identifiant" name="identifiant" required>
-    </div> 
+    </div>
     <div>
         <p>
-        <label for="mot_de_passe">Mot de passe :</label>
+            <label for="mot_de_passe">Mot de passe :</label>
         </p>
         <input type="password" id="mot_de_passe" name="mot_de_passe" required>
     </div>
     <div class="button">
         <br>
         <p>
-        <a href="inscription.php" type="submit" class="btn btn-primary">INSCRIPTION</a>
+            <a href="inscription.php" type="submit" class="btn btn-primary">INSCRIPTION</a>
         </p>
     </div>
     <div class="button">
         <p>
-        <button type="submit" class="btn btn-danger">CONNEXION</button>
+            <button type="submit" class="btn btn-danger">CONNEXION</button>
         </p>
     </div>
 </form>
 
 
 <?php
-    include "footer.php";
+include "footer.php";
 ?>

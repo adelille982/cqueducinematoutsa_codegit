@@ -1,5 +1,5 @@
 <?php
-    include "header.php";
+include "header.php";
 ?>
 
 <br>
@@ -24,5 +24,5 @@
 </section>
 
 <?php
-    include "footer.php";
+include "footer.php";
 ?>

@@ -1,5 +1,5 @@
 <?php
-    include "header.php";
+include "header.php";
 ?>
 
 <br>
@@ -9,7 +9,7 @@
 <br>
 
 <section>
-<?php
+    <?php
     // Définir le début de la semaine (lundi)
     $debutSemaine = new DateTime('monday this week');
 
@@ -36,10 +36,10 @@
         echo "<p style='text-align: center;'>titre du film:</p>";
         echo "<p style='text-align: center;'>cinémas disponibles:</p><br>";
     }
-?>
+    ?>
 </section>
 
 
 <?php
-    include "footer.php";
+include "footer.php";
 ?>

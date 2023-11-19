@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $_SESSION['user_message'] = "Erreur lors de l'ajout de l'utilisateur.";
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         $_SESSION['user_message'] = "Erreur de connexion à la base de données : " . $e->getMessage();
     }
 
@@ -38,4 +38,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header('Location: admin.php');
     exit();
 }
-?>

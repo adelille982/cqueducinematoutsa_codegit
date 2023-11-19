@@ -6,4 +6,4 @@ function connect_bd()
     $pdo = new PDO(DSN, USER, PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
-} 
+}

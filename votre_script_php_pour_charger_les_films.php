@@ -15,4 +15,3 @@ $movies = $statement->fetchAll(PDO::FETCH_ASSOC);
 // Convertir en JSON et renvoyer la réponse
 header('Content-Type: application/json');
 echo json_encode($movies);
-?>

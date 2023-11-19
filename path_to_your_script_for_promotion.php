@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['offerTitle']) && isset
 
     try {
         // Préparez et exécutez la requête SQL pour insérer la promotion/offre spéciale
-        $query = "INSERT INTO promotion_and_special_offer (offer_title, offer_description, term_and_condition, start_date, end_date, offer_status, movie_id, session_id, category_id) VALUES (:offerTitle, :offerDescription, :termAndCondition, :startDate, :endDate, :offerStatus, :movieId3, :session, :category_id)";
+        $query = "INSERT INTO promotion_and_special_offer (offer_title, offer_description, term_and_condition, start_date, end_date, offer_status, movie_id, session_id, category_id) VALUES (:offerTitle, :offerDescription, :termAndCondition, :startDate, :endDate, :offerStatus, :movieId3, :session_id, :category_id)";
         $statement = $pdo->prepare($query);
         $statement->bindValue(':offerTitle', $offerTitle, PDO::PARAM_STR);
         $statement->bindValue(':offerDescription', $offerDescription, PDO::PARAM_STR);
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['offerTitle']) && isset
         $statement->bindValue(':endDate', $endDate, PDO::PARAM_STR);
         $statement->bindValue(':offerStatus', $offerStatus, PDO::PARAM_STR);
         $statement->bindValue(':movieId3', $movieId3, PDO::PARAM_INT);
-        $statement->bindValue('session_id', $sessionId, PDO::PARAM_INT);
+        $statement->bindValue(':session_id', $sessionId, PDO::PARAM_INT);
         $statement->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
 
         if ($statement->execute()) {
@@ -47,4 +47,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['offerTitle']) && isset
     header('Location: admin.php');
     exit();
 }
-?>

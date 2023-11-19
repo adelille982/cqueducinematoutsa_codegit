@@ -29,8 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['userId']) && isset($_P
         $_SESSION['review_message'] = "Avis ajouté avec succès !";
         header('Location: admin.php');
         exit();
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         die("Erreur de connexion à la base de données: " . $e->getMessage());
     }
 }
-?>

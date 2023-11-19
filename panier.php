@@ -1,5 +1,5 @@
 <?php
-    include "header.php";
+include "header.php";
 ?>
 
 <br>
@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-                <!-- Les lignes des articles seront ajoutées ici -->
+            <!-- Les lignes des articles seront ajoutées ici -->
             <tr>
                 <td>Titre du film</td>
                 <td>12/12/2023 20:00</td>
@@ -30,15 +30,15 @@
                 <td>20€</td>
                 <td><button>SUPPRIMER</button></td>
             </tr>
-                <!-- Répétez les lignes pour chaque article dans le panier -->
+            <!-- Répétez les lignes pour chaque article dans le panier -->
         </tbody>
     </table>
-<div class="validation-panier" style="text-align: center;">
-    <button type="button" class="btn btn-success">PASSEZ À LA CAISSE</button>
-</div>
+    <div class="validation-panier" style="text-align: center;">
+        <button type="button" class="btn btn-success">PASSEZ À LA CAISSE</button>
+    </div>
 
 </section>
 
 <?php
-    include "footer.php";
+include "footer.php";
 ?>
