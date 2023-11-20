@@ -37,6 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Rediriger vers la page d'origine ou une autre page si nécessaire
-    header('Location: admin.php');
+    header('Location: inscription.php');
     exit();
 }

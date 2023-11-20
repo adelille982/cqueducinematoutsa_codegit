@@ -1,5 +1,7 @@
 <?php
 session_start();
+?>
+<?php
 require_once 'function.php';
 
 // Vérifier si le formulaire a été soumis

@@ -1,6 +1,7 @@
 <?php
-session_start();
 include "header.php";
+?>
+<?php
 require('votre_script_php_pour_charger_les_categories_tarif.php');
 require('votre_script_php_pour_charger_les_dates_heures.php');
 ?>

@@ -8,7 +8,7 @@ include "header.php";
 <br>
 <br>
 
-<h1 style="text-align: center;">NOS FILMS DISPONIBLES ACTUELLEMENT EN SALLE</h1>
+<h1 style="text-align: center;">NOS FILMS DISPONIBLES OU BIENTÔT DISPONIBLES</h1>
 
 <br>
 <br>
@@ -20,400 +20,76 @@ include "header.php";
 <br>
 <br>
 
+<?php
+require_once 'function.php';
+$pdo = connect_bd();
+
+$searchResults = [];
+
+// Traitement de la recherche
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
+    $searchTerm = $_GET["search"];
+    $searchTerm = '%' . $searchTerm . '%';
+
+    // Préparation de la requête pour rechercher des films par titre
+    $stmt = $pdo->prepare("SELECT * FROM movie_information WHERE movie_title LIKE ?");
+    $stmt->bindParam(1, $searchTerm);
+    $stmt->execute();
+    $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Choix des données à afficher : résultats de recherche ou tous les films
+$filmsToDisplay = !empty($searchResults) ? $searchResults : $pdo->query("SELECT ID, movie_title, synopsis, duration, release_date, movie_poster, trailer FROM movie_information")->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <section>
     <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
+        <?php foreach ($filmsToDisplay as $film) : ?>
+            <br>
+            <br>
+            <br>
+            <div class="row mb-4">
+                <!-- Section Image du Film -->
+                <div class="col-md-4">
+                    <img src="<?php echo htmlspecialchars($film['movie_poster']); ?>" class="img-fluid rounded-image" alt="<?php echo htmlspecialchars($film['movie_title']); ?>" width="300" height="150">
+                </div>
 
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
+                <!-- Section Informations et Sélecteurs -->
+                <div class="col-md-8">
+                    <div class="card-body text-center">
+                        <h2 class="card-title"><?php echo htmlspecialchars($film['movie_title']); ?></h2><br>
+                        <p class="card-text"><?php echo htmlspecialchars($film['synopsis']); ?></p>
+                        <p class="card-text">Durée : <?php echo htmlspecialchars($film['duration']); ?> minutes</p>
+                        <p class="card-text">Date de sortie : <?php echo htmlspecialchars($film['release_date']); ?></p>
+                        <p class="card-text">Bande-annonce : <a href="<?php echo htmlspecialchars($film['trailer']); ?>" target="_blank">Voir la bande-annonce</a></p><br>
+                        <div class="selector-container">
+                            <!-- Sélecteur de Cinéma -->
+                            <div class="cinema-selector">
+                                <p>Cinémas Disponibles :</p>
+                                <select id="cinemaSelector">
+                                    <!-- Options de cinémas -->
+                                </select>
+                            </div>
+                            <!-- Sélecteur de Séance -->
+                            <div class="session-selector">
+                                <p>Séances Disponibles :</p>
+                                <select id="sessionSelector">
+                                    <!-- Options de séances -->
+                                </select>
+                            </div>
 
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
+                            <!-- Bouton Réservation -->
+                            <div class="reservation-button">
+                                <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<br>
-<br>
-<br>
-<br>
-<hr>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<section>
-    <div class="container custom-container">
-        <div class="row">
-            <!-- Section Image du Film -->
-            <div class="col-md-4">
-                <img src="./images/cinema_vintage.png" class="img-fluid rounded-image" alt="Affiche du film">
-            </div>
-
-            <!-- Section Informations et Sélecteurs -->
-            <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h2 class="card-title">Titre du Film</h2>
-                    <p class="card-text">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33] At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident.</p>
-                    <div class="selector-container">
-                        <!-- Sélecteur de Cinéma -->
-                        <div class="cinema-selector">
-                            <p>Cinémas Disponibles :</p>
-                            <select id="cinemaSelector">
-                                <!-- Options de cinémas -->
-                            </select>
-                        </div>
-                        <!-- Sélecteur de Séance -->
-                        <div class="session-selector">
-                            <p>Séances Disponibles :</p>
-                            <select id="sessionSelector">
-                                <!-- Options de séances -->
-                            </select>
-                        </div>
-
-                        <!-- Bouton Réservation -->
-                        <div class="reservation-button">
-                            <a href="reservation.php" class="btn btn-primary" id="reservationButton">Réservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <br>
+            <br>
+            <hr>
+        <?php endforeach; ?>
     </div>
 </section>
 

@@ -1,6 +1,10 @@
 <?php
-require "_connec.php";
-require "function.php";
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+?>
+<?php
+require_once "function.php";
 ?>
 
 <!DOCTYPE html>
@@ -38,20 +42,32 @@ require "function.php";
               <a class="nav-link" href="reservation.php">RÉSERVATION</a>
             </li>
           </ul>
+          <div style="margin-right: 30px;">
+            <div class="navbar-nav ml-auto">
+              <?php if (isset($_SESSION['username'])) : ?>
+                <span class="navbar-text">
+                  Bonjour, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                </span>
+                <a href="logout.php" class="btn btn-danger ml-2">Déconnexion</a>
+              <?php else : ?>
+                <a href="connexion_utilisateur.php" class="btn btn-primary">Connexion</a>
+              <?php endif; ?>
+            </div>
+          </div>
           <!-- Menu déroulant pour l'icône de connexion utilisateur -->
           <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle bi bi-person-circle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Connexion
-            </a>
+            <a class="nav-link dropdown-toggle bi bi-person-circle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Espace utilisateur</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="inscription.php">INSCRIPTION</a></li>
-              <li><a class="dropdown-item" href="connexion_utlisateur.php">CONNEXION</a></li>
               <li><a class="dropdown-item" href="compte_utilisateur.php">MON COMPTE</a></li>
             </ul>
           </div>
-          <form class="d-flex">
-            <input class="form-control me-sm-2" type="search" placeholder="Rechercher">
-            <button class="btn btn-danger my-2 my-sm-0" type="submit"></i>RECHERCHER</button>
+          <a href="panier.php">
+            <i class="bi bi-cart3"></i>
+          </a>
+          <form class="d-flex" action="films.php" method="get">
+            <input class="form-control me-sm-2" type="search" placeholder="Rechercher un film" name="search">
+            <button class="btn btn-danger my-2 my-sm-0" type="submit">RECHERCHER</button>
           </form>
         </div>
       </div>

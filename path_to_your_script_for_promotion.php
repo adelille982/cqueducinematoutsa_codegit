@@ -1,5 +1,7 @@
 <?php
 session_start();
+?>
+<?php
 require_once 'function.php';
 
 // Assurez-vous d'inclure votre fichier de configuration de la base de données et d'établir une connexion
