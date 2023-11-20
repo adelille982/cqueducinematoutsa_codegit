@@ -14,39 +14,76 @@ include "header.php";
         <legend>RÉSERVATION DE SÉANCE</legend>
 
 
-        <!-- Sélection du film -->
-        <div class="form-group">
-            <p>
-                <label for="movieId">FILM:</label>
-            </p>
-            <select id="movieId" name="movieId" onchange="updateSessionOptions()">
-                <!-- Options générées dynamiquement à partir de la base de données -->
-            </select>
-        </div>
+    <!-- Sélection du film -->
+    <div class="form-group">
+      <label for="movieId3" class="form-label mt-4">TITRE DU FILM:</label>
+      <select class="form-control" id="movieId3" name="movieId3">
+        <!-- Options générées dynamiquement à partir de la base de données -->
+      </select>
+    </div>
+
+    <script>
+      // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
+      function loadMovies3() {
+        fetch('votre_script_php_pour_charger_les_films.php')
+          .then(response => response.json())
+          .then(data => {
+            const movieSelect = document.getElementById('movieId3');
+            data.forEach(movie => {
+              const option = document.createElement('option');
+              option.value = movie.ID;
+              option.textContent = movie.movie_title;
+              movieSelect.appendChild(option);
+            });
+          })
+          .catch(error => console.error(error));
+      }
+
+      // Appel des fonctions pour charger les listes déroulantes au chargement de la page
+      document.addEventListener('DOMContentLoaded', () => {
+        loadMovies3();
+      });
+    </script>
 
         <br>
 
-        <!-- Sélection du cinéma -->
-        <div class="form-group">
-            <p>
-                <label for="cinemaId">CINÉMA:</label>
-            </p>
-            <select id="cinemaId" name="cinemaId" onchange="updateSessionOptions()">
-                <!-- Options générées dynamiquement à partir de la base de données -->
-            </select>
-        </div>
+        <script>
+      // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
+      function loadMovies2() {
+        fetch('votre_script_php_pour_charger_les_films.php')
+          .then(response => response.json())
+          .then(data => {
+            const movieSelect = document.getElementById('movieId2');
+            data.forEach(movie => {
+              const option = document.createElement('option');
+              option.value = movie.ID;
+              option.textContent = movie.movie_title;
+              movieSelect.appendChild(option);
+            });
+          })
+          .catch(error => console.error(error));
+      }
+
+      // Appel de loadMovies2 pour le deuxième formulaire
+      document.addEventListener('DOMContentLoaded', () => {
+        loadMovies2();
+      });
+    </script>
 
         <br>
 
         <!-- Sélection de la séance -->
         <div class="form-group">
-            <p>
-                <label for="sessionDateTime">DATE ET HEURE DE LA SÉANCE:</label>
-            </p>
-            <select id="sessionDateTime" name="sessionDateTime">
-                <!-- Les options seront mises à jour dynamiquement en fonction du film et du cinéma sélectionnés -->
-            </select>
-        </div>
+      <?php $dataHours = printDate(); ?>
+      <label for="sessionId" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE</label>
+      <select class="form-control" id="sessionId" name="session_id">
+        <option value="">DATE ET HEURE DE LA SÉANCE</option>
+        <?php foreach ($dataHours as $dataHour) : ?>
+          <option value="<?= $dataHour['ID'] ?>"><?= $dataHour['date_and_time_of_session'] ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+
 
         <br>
 
