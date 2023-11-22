@@ -1,5 +1,36 @@
 <?php
 include "header.php";
+$pdo = connect_bd();
+
+// Fonctions pour récupérer les informations nécessaires
+function getMovies($pdo)
+{
+  $stmt = $pdo->query("SELECT ID, movie_title FROM movie_information");
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getCinemas($pdo)
+{
+  $stmt = $pdo->query("SELECT ID, room_name FROM movie_theater");
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getSessions($pdo, $movieId)
+{
+  $stmt = $pdo->prepare("SELECT ID, date_and_time_of_session FROM session WHERE movie_id = ?");
+  $stmt->execute([$movieId]);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Récupérer les paramètres de l'URL si disponibles
+$selectedMovieId = $_GET['movie_id'] ?? null;
+$selectedCinemaId = $_GET['cinema_id'] ?? null;
+$selectedSessionId = $_GET['session_id'] ?? null;
+
+$movies = getMovies($pdo);
+$cinemas = getCinemas($pdo);
+$sessions = $selectedMovieId ? getSessions($pdo, $selectedMovieId) : [];
+
 ?>
 
 <br>
@@ -7,106 +38,65 @@ include "header.php";
 <br>
 <br>
 
-<!-- Formulaire de réservation initial -->
-<form style="text-align: center;" onsubmit="return calculateTotalPrice();">
-    <fieldset>
-
-        <legend>RÉSERVATION DE SÉANCE</legend>
-
+<!-- Formulaire de réservation -->
+<form style="text-align: center;">
+  <fieldset>
+    <legend>RÉSERVATION DE SÉANCE</legend>
 
     <!-- Sélection du film -->
     <div class="form-group">
       <label for="movieId3" class="form-label mt-4">TITRE DU FILM:</label>
       <select class="form-control" id="movieId3" name="movieId3">
-        <!-- Options générées dynamiquement à partir de la base de données -->
-      </select>
-    </div>
-
-    <script>
-      // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
-      function loadMovies3() {
-        fetch('votre_script_php_pour_charger_les_films.php')
-          .then(response => response.json())
-          .then(data => {
-            const movieSelect = document.getElementById('movieId3');
-            data.forEach(movie => {
-              const option = document.createElement('option');
-              option.value = movie.ID;
-              option.textContent = movie.movie_title;
-              movieSelect.appendChild(option);
-            });
-          })
-          .catch(error => console.error(error));
-      }
-
-      // Appel des fonctions pour charger les listes déroulantes au chargement de la page
-      document.addEventListener('DOMContentLoaded', () => {
-        loadMovies3();
-      });
-    </script>
-
-        <br>
-
-        <script>
-      // Fonction pour charger la liste des films depuis la base de données pour le deuxième formulaire
-      function loadMovies2() {
-        fetch('votre_script_php_pour_charger_les_films.php')
-          .then(response => response.json())
-          .then(data => {
-            const movieSelect = document.getElementById('movieId2');
-            data.forEach(movie => {
-              const option = document.createElement('option');
-              option.value = movie.ID;
-              option.textContent = movie.movie_title;
-              movieSelect.appendChild(option);
-            });
-          })
-          .catch(error => console.error(error));
-      }
-
-      // Appel de loadMovies2 pour le deuxième formulaire
-      document.addEventListener('DOMContentLoaded', () => {
-        loadMovies2();
-      });
-    </script>
-
-        <br>
-
-        <!-- Sélection de la séance -->
-        <div class="form-group">
-      <?php $dataHours = printDate(); ?>
-      <label for="sessionId" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE</label>
-      <select class="form-control" id="sessionId" name="session_id">
-        <option value="">DATE ET HEURE DE LA SÉANCE</option>
-        <?php foreach ($dataHours as $dataHour) : ?>
-          <option value="<?= $dataHour['ID'] ?>"><?= $dataHour['date_and_time_of_session'] ?></option>
+        <?php foreach ($movies as $film) : ?>
+          <option value="<?= $film['ID']; ?>" <?= $selectedMovieId == $film['ID'] ? 'selected' : ''; ?>>
+            <?= htmlspecialchars($film['movie_title']); ?>
+          </option>
         <?php endforeach; ?>
       </select>
     </div>
 
+    <br>
 
-        <br>
+    <!-- Sélection du cinéma -->
+    <div class="form-group">
+      <label for="cinemaId3" class="form-label mt-4">CINÉMA:</label>
+      <select class="form-control" id="cinemaId3" name="cinemaId3">
+        <?php foreach ($cinemas as $cinema) : ?>
+          <option value="<?= $cinema['ID']; ?>" <?= $selectedCinemaId == $cinema['ID'] ? 'selected' : ''; ?>>
+            <?= htmlspecialchars($cinema['room_name']); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+    </div>
 
-        <!-- Nombre de places -->
-        <div class="form-group">
-            <p>
-                <label for="numberOfSeats">NOMBRE DE PLACE SOUHAITÉ:</label>
-            </p>
-            <input type="number" id="numberOfSeats" name="numberOfSeats" min="1" max="100">
-        </div>
+    <br>
 
-        <br>
+    <!-- Sélection de la séance -->
+    <div class="form-group">
+      <label for="sessionId3" class="form-label mt-4">DATE ET HEURE DE LA SÉANCE:</label>
+      <select class="form-control" id="sessionId3" name="sessionId3">
+        <?php foreach ($sessions as $session) : ?>
+          <option value="<?= $session['ID']; ?>" <?= $selectedSessionId == $session['ID'] ? 'selected' : ''; ?>>
+            <?= htmlspecialchars($session['date_and_time_of_session']); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+    </div>
 
-        <div id="totalPrice" style="margin-top: 20px;">
-            Prix Total: <span id="priceDisplay">0</span> €
-        </div>
+    <br>
 
-        <br>
+    <!-- Nombre de places -->
+    <div class="form-group">
+      <label for="numberOfSeats3" class="form-label mt-4">NOMBRE DE PLACES SOUHAITÉ:</label>
+      <input type="number" class="form-control" id="numberOfSeats3" name="numberOfSeats3" min="1" max="100">
+    </div>
 
-        <div style="display: flex; justify-content: center;">
-            <button type="submit" class="btn btn-danger">VALIDER VOTRE RÉSERVATION</button>
-        </div>
-    </fieldset>
+    <br>
+
+    <div style="display: flex; justify-content: center;">
+      <button type="submit" class="btn btn-danger">VALIDER VOTRE RÉSERVATION</button>
+    </div>
+  </fieldset>
 </form>
 
 <?php
