@@ -1,6 +1,7 @@
 <?php
 require_once "_connec.php";
-function getLoggedInUserId() {
+function getLoggedInUserId()
+{
     return isset($_SESSION['ID']) ? $_SESSION['ID'] : null;
 }
 

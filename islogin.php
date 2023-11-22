@@ -10,4 +10,3 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 $email = $_SESSION['email_address'];
-?>
